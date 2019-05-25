@@ -15,5 +15,8 @@
     "bs-discord.js": "file:../bs-discord.js",
     "bs-platform": "^5.0.4"
   },
-  "main": "lib/js/src/Bot.js"
+  "main": "src/Bot.bs.js",
+  "dependencies": {
+    "discord.js": "^11.5.0"
+  }
 }
