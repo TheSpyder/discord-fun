@@ -6,15 +6,18 @@ Js.log("Hello, BuckleScript and Reason!");
 open Discord;
 let client = Client.createClient();
 
-Client.onReady(client, _ => Js.log("Bot is ready"));
+Client.onReady(client, _ => {
+  Js.log("Bot is ready");
+  Client.user(client) -> ClientUser.setActivity("Proving spyder doesn't know discord")
+});
 
 let handleMessage = msg =>
-  switch (Message.author(msg) -> User.bot, Message.content(msg)) {
-  | (false, _) => ()
-  | (_, "ping") => Message.reply(msg, "pong")
+  switch (Message.content(msg)) {
+  | "ping" => Message.reply(msg, "pong")
   | _ => () // TODO
   };
 
-Client.onMessage(client, handleMessage);
+// immediate filter to ignore bot messages
+Client.onMessage(client, msg => Message.author(msg) -> User.bot ? () : handleMessage(msg));
 
 Client.login(client, token);
