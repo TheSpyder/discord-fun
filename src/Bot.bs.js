@@ -3,6 +3,7 @@
 
 var Calc = require("./Calc.bs.js");
 var Help = require("./Help.bs.js");
+var Filter = require("./Filter.bs.js");
 var Sysinfo = require("./Sysinfo.bs.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var DiscordJs = require("discord.js");
@@ -30,29 +31,42 @@ client.on("message", (function (msg) {
         var match = msg.author.bot;
         var match$1 = msg.content.indexOf("!");
         var match$2 = msg.channel.name;
-        if (match || match$1 !== 0 || match$2 !== "spyder-reasonml") {
+        if (match) {
           return /* () */0;
         } else {
-          console.log("Handling command", msg.content);
-          var msg$1 = msg;
-          var command = Belt_List.fromArray(msg$1.content.substr(1).split(" "));
-          if (command) {
-            switch (command[0]) {
-              case "calc" : 
-                  return reply(msg$1, Calc.calculate(command[1]));
-              case "help" : 
-                  return reply(msg$1, Help.help(command[1]));
-              case "ping" : 
-                  return reply(msg$1, "pong");
-              case "sysinfo" : 
-                  msg$1.channel.send(Sysinfo.richInfo(/* () */0));
-                  return /* () */0;
-              default:
-                return /* () */0;
-            }
+          var exit = 0;
+          if (match$1 !== 0 || match$2 !== "spyder-reasonml") {
+            exit = 1;
           } else {
-            return /* () */0;
+            console.log("Handling command", msg.content);
+            var msg$1 = msg;
+            var command = Belt_List.fromArray(msg$1.content.substr(1).split(" "));
+            if (command) {
+              switch (command[0]) {
+                case "calc" : 
+                    return reply(msg$1, Calc.calculate(command[1]));
+                case "help" : 
+                    return reply(msg$1, Help.help(command[1]));
+                case "ping" : 
+                    return reply(msg$1, "pong");
+                case "sysinfo" : 
+                    msg$1.channel.send(Sysinfo.richInfo(/* () */0));
+                    return /* () */0;
+                default:
+                  return /* () */0;
+              }
+            } else {
+              return /* () */0;
+            }
           }
+          if (exit === 1) {
+            if (match$2 === "spyder-reasonml") {
+              return Filter.swears(msg);
+            } else {
+              return /* () */0;
+            }
+          }
+          
         }
       }));
 

@@ -21,16 +21,5 @@ function richInfo(param) {
   return new DiscordJs.RichEmbed().setTitle("Spyder's bot hosting system").setColor("DARK_PURPLE").setDescription(info);
 }
 
-var secondsPerDay = 86400;
-
-var bytesPerGB = 1073741824;
-
-exports.release = release;
-exports.secondsPerDay = secondsPerDay;
-exports.uptime = uptime;
-exports.bytesPerGB = bytesPerGB;
-exports.totalmem = totalmem;
-exports.freemem = freemem;
-exports.info = info;
 exports.richInfo = richInfo;
 /* release Not a pure module */

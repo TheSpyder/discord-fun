@@ -41,6 +41,8 @@ Client.onMessage(client, msg =>
   | (false, 0, "spyder-reasonml") =>
     Js.log2("Handling command", Message.content(msg));
     handleMessage(msg);
+  | (false, _, "spyder-reasonml") =>
+    Filter.swears(msg);
   | (true, _, "spyder-reasonml") => () // ignore bot replies in my channel
   | _ =>
     // this will quickly get spammy hahaha
