@@ -1,0 +1,1 @@
+let calculate: list(string) => string
