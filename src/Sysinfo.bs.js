@@ -7,11 +7,11 @@ var DiscordJs = require("discord.js");
 
 var release = Os.release();
 
-var uptime = (Os.uptime() / 3600 | 0) / 24 | 0;
+var uptime = Os.uptime() / 86400 | 0;
 
-var totalmem = (Os.totalmem() / 1048576 | 0) / 1024 | 0;
+var totalmem = Os.totalmem() / 1073741824 | 0;
 
-var freemem = (Os.freemem() / 1048576 | 0) / 1024 | 0;
+var freemem = Os.freemem() / 1073741824 | 0;
 
 var info = "\nOS codename: " + (String(Process.platform) + (" version " + (String(release) + ("\nUptime: " + (String(uptime) + (" days\nMemory: " + (String(freemem) + (" / " + (String(totalmem) + " GB\nStorage: plenty 😂\n")))))))));
 
@@ -21,8 +21,14 @@ function richInfo(param) {
   return new DiscordJs.RichEmbed().setTitle("Spyder's bot hosting system").setColor("DARK_PURPLE").setDescription(info);
 }
 
+var secondsPerDay = 86400;
+
+var bytesPerGB = 1073741824;
+
 exports.release = release;
+exports.secondsPerDay = secondsPerDay;
 exports.uptime = uptime;
+exports.bytesPerGB = bytesPerGB;
 exports.totalmem = totalmem;
 exports.freemem = freemem;
 exports.info = info;

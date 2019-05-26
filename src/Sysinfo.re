@@ -5,14 +5,16 @@ open Discord;
 [@bs.module "os"] external releaseF: unit => string = "release";
 let release = releaseF();
 
+let secondsPerDay = 86400;
 [@bs.module "os"] external uptimeF: unit => int = "uptime";
-let uptime = uptimeF() / 3600 / 24;
+let uptime = uptimeF() / secondsPerDay;
 
+let bytesPerGB = 1073741824;
 [@bs.module "os"] external totalmemF: unit => int = "totalmem";
-let totalmem = totalmemF() / 1048576 / 1024;
+let totalmem = totalmemF() / bytesPerGB;
 
 [@bs.module "os"] external freememF: unit => int = "freemem";
-let freemem = freememF() / 1048576 / 1024;
+let freemem = freememF() / bytesPerGB;
 
 let info = {j|
 OS codename: $platform version $release

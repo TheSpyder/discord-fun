@@ -9,11 +9,13 @@ function help(param) {
           return "\n!**calc!**:\nPerforms a math calculation on two numbers.\n\n``!calc <numberA> <operator> <numberB>``\n\n``<numberA>``: a valid integer or decimal number\n``<operator>``: a maths operator (``+``, ``-``, ``*``, ``/``)\n``<numberB>``: a valid integer or decimal number";
       case "help" : 
           return "\n!**help**:\nShows information on available commands.\n\n``!help [command]``\n``[command]`` *(optional)*: the name of a command";
+      case "sysinfo" : 
+          return "\n!**sysinfo**:\nShows information on the bot's operating system.\n\n``!sysinfo``";
       default:
         return "I don't know how to help with that";
     }
   } else {
-    return "Commands:\nhelp\ncalc\nbanana";
+    return "Commands:\nhelp\ncalc\nsysinfo";
   }
 }
 
