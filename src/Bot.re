@@ -20,6 +20,7 @@ let handleMessage = msg => {
   switch (command) {
   | ["ping", ..._] => Message.reply(msg, "pong")
   | ["help", ...request] => Message.reply(msg, Help.help(request))
+  | ["calc", ...ops] => Message.reply(msg, Calc.calculate(ops))
   | _ => () // TODO
   };
 };

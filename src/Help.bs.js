@@ -6,9 +6,9 @@ function help(param) {
   if (param) {
     switch (param[0]) {
       case "calc" : 
-          return "Not implemented";
+          return "\n!**calc!**:\nPerforms a math calculation on two numbers.\n\n``!calc <numberA> <operator> <numberB>``\n\n``<numberA>``: a valid integer or decimal number\n``<operator>``: a maths operator (``+``, ``-``, ``*``, ``/``)\n``<numberB>``: a valid integer or decimal number";
       case "help" : 
-          return "\n!**help**:\n\nShows information on available commands.\n\n\n\n``!help [command]``\n\n\n\n``[command]`` *(optional)*: the name of a command";
+          return "\n!**help**:\nShows information on available commands.\n\n``!help [command]``\n``[command]`` *(optional)*: the name of a command";
       default:
         return "I don't know how to help with that";
     }
