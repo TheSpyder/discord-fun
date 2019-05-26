@@ -19,6 +19,7 @@ let reply = (msg, str) => {
 };
 
 let handleMessage = msg => {
+  Js.log2("Handling command", Message.content(msg));
   let command =
     (Js.String.substr(Message.content(msg), ~from=1) |> Js.String.split(" "))
     ->Belt.List.fromArray;
@@ -27,23 +28,20 @@ let handleMessage = msg => {
   | ["help", ...request] => reply(msg, Help.help(request))
   | ["calc", ...ops] => reply(msg, Calc.calculate(ops))
   | ["sysinfo", ..._] => Message.channel(msg)->Channel.sendEmbed(Sysinfo.richInfo())
-  | _ => () // TODO
+  | _ => () // ignore
   };
 };
 
-// immediate filter to ignore bot messages
 Client.onMessage(client, msg =>
   switch (
     Message.author(msg)->User.bot,
     Message.content(msg) |> Js.String.indexOf("!"),
     Message.channel(msg)->Channel.name,
   ) {
-  | (false, 0, "spyder-reasonml") =>
-    Js.log2("Handling command", Message.content(msg));
-    handleMessage(msg);
-  | (false, _, "spyder-reasonml") =>
-    Filter.swears(msg);
-  | (true, _, "spyder-reasonml") => () // ignore bot replies in my channel
+  | (false, 0, "spyder-reasonml")
+  | (false, 0, "free-for-all") => handleMessage(msg)
+  | (false, _, "spyder-reasonml") => Filter.swears(msg)
+  | (true, _, _) => () // ignore bot replies
   | _ =>
     // this will quickly get spammy hahaha
     // Js.logMany([|
@@ -53,7 +51,7 @@ Client.onMessage(client, msg =>
     //   Message.channel(msg)->Channel.name,
     //   "Contents '" ++ Message.content(msg) ++ "'",
     // |]);
-    ();
+    ()
   }
 );
 

@@ -35,28 +35,34 @@ client.on("message", (function (msg) {
           return /* () */0;
         } else {
           var exit = 0;
-          if (match$1 !== 0 || match$2 !== "spyder-reasonml") {
+          if (match$1 !== 0) {
             exit = 1;
           } else {
-            console.log("Handling command", msg.content);
-            var msg$1 = msg;
-            var command = Belt_List.fromArray(msg$1.content.substr(1).split(" "));
-            if (command) {
-              switch (command[0]) {
-                case "calc" : 
-                    return reply(msg$1, Calc.calculate(command[1]));
-                case "help" : 
-                    return reply(msg$1, Help.help(command[1]));
-                case "ping" : 
-                    return reply(msg$1, "pong");
-                case "sysinfo" : 
-                    msg$1.channel.send(Sysinfo.richInfo(/* () */0));
+            switch (match$2) {
+              case "free-for-all" : 
+              case "spyder-reasonml" : 
+                  var msg$1 = msg;
+                  console.log("Handling command", msg$1.content);
+                  var command = Belt_List.fromArray(msg$1.content.substr(1).split(" "));
+                  if (command) {
+                    switch (command[0]) {
+                      case "calc" : 
+                          return reply(msg$1, Calc.calculate(command[1]));
+                      case "help" : 
+                          return reply(msg$1, Help.help(command[1]));
+                      case "ping" : 
+                          return reply(msg$1, "pong");
+                      case "sysinfo" : 
+                          msg$1.channel.send(Sysinfo.richInfo(/* () */0));
+                          return /* () */0;
+                      default:
+                        return /* () */0;
+                    }
+                  } else {
                     return /* () */0;
-                default:
-                  return /* () */0;
-              }
-            } else {
-              return /* () */0;
+                  }
+              default:
+                exit = 1;
             }
           }
           if (exit === 1) {
