@@ -15,8 +15,6 @@ var freemem = Os.freemem() / 1073741824 | 0;
 
 var info = "\nOS codename: " + (String(Process.platform) + (" version " + (String(release) + ("\nUptime: " + (String(uptime) + (" days\nMemory: " + (String(freemem) + (" / " + (String(totalmem) + " GB\nStorage: plenty 😂\n")))))))));
 
-console.log("sys info", info);
-
 function richInfo(param) {
   return new DiscordJs.RichEmbed().setTitle("Spyder's bot hosting system").setColor("DARK_PURPLE").setDescription(info);
 }
