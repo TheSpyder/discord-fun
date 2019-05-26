@@ -1,7 +1,6 @@
 Js.log("Hello, BuckleScript and Reason!");
 
 [@bs.module "../config.json"] external token: string = "token";
-[@bs.module "../config.json"] external prefix: string = "prefix";
 
 open Discord;
 let client = Client.createClient();
@@ -20,6 +19,7 @@ let handleMessage = msg => {
     ->Belt.List.fromArray;
   switch (command) {
   | ["ping", ..._] => Message.reply(msg, "pong")
+  | ["help", ...request] => Message.reply(msg, Help.help(request))
   | _ => () // TODO
   };
 };
@@ -28,20 +28,19 @@ let handleMessage = msg => {
 Client.onMessage(client, msg =>
   switch (
     Message.author(msg)->User.bot,
-    Message.content(msg) |> Js.String.indexOf(prefix),
+    Message.content(msg) |> Js.String.indexOf("!"),
     Message.channel(msg)->Channel.name,
   ) {
-  | (false, 0, "spyder-reasonml") => handleMessage(msg)
+  | (false, 0, "spyder-reasonml") => Js.log2("Handling command", Message.content(msg)); handleMessage(msg)
+  | (true, _, "spyder-reasonml") => () // ignore bot replies in my channel
   | _ =>
     // this will quickly get spammy hahaha
     Js.logMany([|
-      "Unhandled message, from: ",
+      "Unhandled message from",
       Message.author(msg)->User.name,
-      "\nChannel: ",
+      "in Channel",
       Message.channel(msg)->Channel.name,
-      "\nContents:\n",
-      Message.content(msg),
-      "------",
+      "Contents '" ++ Message.content(msg) ++ "'",
     |])
   }
 );
