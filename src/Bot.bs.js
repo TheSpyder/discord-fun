@@ -3,6 +3,7 @@
 
 var Calc = require("./Calc.bs.js");
 var Help = require("./Help.bs.js");
+var Sysinfo = require("./Sysinfo.bs.js");
 var Belt_List = require("bs-platform/lib/js/belt_List.js");
 var DiscordJs = require("discord.js");
 var ConfigJson = require("../config.json");
@@ -29,15 +30,8 @@ client.on("message", (function (msg) {
         var match = msg.author.bot;
         var match$1 = msg.content.indexOf("!");
         var match$2 = msg.channel.name;
-        var exit = 0;
-        if (match) {
-          if (match$2 === "spyder-reasonml") {
-            return /* () */0;
-          } else {
-            exit = 1;
-          }
-        } else if (match$1 !== 0 || match$2 !== "spyder-reasonml") {
-          exit = 1;
+        if (match || match$1 !== 0 || match$2 !== "spyder-reasonml") {
+          return /* () */0;
         } else {
           console.log("Handling command", msg.content);
           var msg$1 = msg;
@@ -50,6 +44,9 @@ client.on("message", (function (msg) {
                   return reply(msg$1, Help.help(command[1]));
               case "ping" : 
                   return reply(msg$1, "pong");
+              case "sysinfo" : 
+                  msg$1.channel.send(Sysinfo.richInfo(/* () */0));
+                  return /* () */0;
               default:
                 return /* () */0;
             }
@@ -57,11 +54,6 @@ client.on("message", (function (msg) {
             return /* () */0;
           }
         }
-        if (exit === 1) {
-          console.log("Unhandled message from", msg.author.username, "in Channel", msg.channel.name, "Contents '" + (msg.content + "'"));
-          return /* () */0;
-        }
-        
       }));
 
 client.login(token);

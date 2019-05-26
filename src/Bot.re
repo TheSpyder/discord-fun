@@ -26,6 +26,7 @@ let handleMessage = msg => {
   | ["ping", ..._] => reply(msg, "pong")
   | ["help", ...request] => reply(msg, Help.help(request))
   | ["calc", ...ops] => reply(msg, Calc.calculate(ops))
+  | ["sysinfo", ..._] => Message.channel(msg)->Channel.sendEmbed(Sysinfo.richInfo())
   | _ => () // TODO
   };
 };
@@ -43,13 +44,14 @@ Client.onMessage(client, msg =>
   | (true, _, "spyder-reasonml") => () // ignore bot replies in my channel
   | _ =>
     // this will quickly get spammy hahaha
-    Js.logMany([|
-      "Unhandled message from",
-      Message.author(msg)->User.name,
-      "in Channel",
-      Message.channel(msg)->Channel.name,
-      "Contents '" ++ Message.content(msg) ++ "'",
-    |])
+    // Js.logMany([|
+    //   "Unhandled message from",
+    //   Message.author(msg)->User.name,
+    //   "in Channel",
+    //   Message.channel(msg)->Channel.name,
+    //   "Contents '" ++ Message.content(msg) ++ "'",
+    // |]);
+    ();
   }
 );
 
