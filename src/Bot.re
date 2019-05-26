@@ -13,14 +13,19 @@ Client.onReady(
   },
 );
 
+let reply = (msg, str) => {
+  Js.log2("Responding with", str);
+  Message.reply(msg, str);
+};
+
 let handleMessage = msg => {
   let command =
     (Js.String.substr(Message.content(msg), ~from=1) |> Js.String.split(" "))
     ->Belt.List.fromArray;
   switch (command) {
-  | ["ping", ..._] => Message.reply(msg, "pong")
-  | ["help", ...request] => Message.reply(msg, Help.help(request))
-  | ["calc", ...ops] => Message.reply(msg, Calc.calculate(ops))
+  | ["ping", ..._] => reply(msg, "pong")
+  | ["help", ...request] => reply(msg, Help.help(request))
+  | ["calc", ...ops] => reply(msg, Calc.calculate(ops))
   | _ => () // TODO
   };
 };
@@ -32,7 +37,9 @@ Client.onMessage(client, msg =>
     Message.content(msg) |> Js.String.indexOf("!"),
     Message.channel(msg)->Channel.name,
   ) {
-  | (false, 0, "spyder-reasonml") => Js.log2("Handling command", Message.content(msg)); handleMessage(msg)
+  | (false, 0, "spyder-reasonml") =>
+    Js.log2("Handling command", Message.content(msg));
+    handleMessage(msg);
   | (true, _, "spyder-reasonml") => () // ignore bot replies in my channel
   | _ =>
     // this will quickly get spammy hahaha

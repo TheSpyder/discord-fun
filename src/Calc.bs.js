@@ -89,6 +89,5 @@ function calculate(_ops) {
   };
 }
 
-exports.safelyCalculate = safelyCalculate;
 exports.calculate = calculate;
 /* No side effect */

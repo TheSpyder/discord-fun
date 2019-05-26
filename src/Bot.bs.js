@@ -19,6 +19,12 @@ client.on("ready", (function (param) {
         return /* () */0;
       }));
 
+function reply(msg, str) {
+  console.log("Responding with", str);
+  msg.reply(str);
+  return /* () */0;
+}
+
 client.on("message", (function (msg) {
         var match = msg.author.bot;
         var match$1 = msg.content.indexOf("!");
@@ -39,14 +45,11 @@ client.on("message", (function (msg) {
           if (command) {
             switch (command[0]) {
               case "calc" : 
-                  msg$1.reply(Calc.calculate(command[1]));
-                  return /* () */0;
+                  return reply(msg$1, Calc.calculate(command[1]));
               case "help" : 
-                  msg$1.reply(Help.help(command[1]));
-                  return /* () */0;
+                  return reply(msg$1, Help.help(command[1]));
               case "ping" : 
-                  msg$1.reply("pong");
-                  return /* () */0;
+                  return reply(msg$1, "pong");
               default:
                 return /* () */0;
             }

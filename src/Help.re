@@ -1,15 +1,16 @@
-let help = fun
- | [] => "Commands:
+let help =
+  fun
+  | [] => "Commands:
 help
 calc
 banana"
- | ["help", ..._] => "
+  | ["help", ..._] => "
 !**help**:
 Shows information on available commands.
 
 ``!help [command]``
 ``[command]`` *(optional)*: the name of a command"
- | ["calc", ..._] => "
+  | ["calc", ..._] => "
 !**calc!**:
 Performs a math calculation on two numbers.
 
@@ -18,4 +19,4 @@ Performs a math calculation on two numbers.
 ``<numberA>``: a valid integer or decimal number
 ``<operator>``: a maths operator (``+``, ``-``, ``*``, ``/``)
 ``<numberB>``: a valid integer or decimal number"
- | _ => "I don't know how to help with that"
+  | _ => "I don't know how to help with that";
